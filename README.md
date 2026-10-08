@@ -26,3 +26,9 @@ pnpm build             # builds all four
 One Vercel project per site, all in the **BikeBoatRun** team, all importing this repo. The only
 per-project difference is **Root Directory**, set to that site's `apps/<name>` folder. Vercel
 detects Next.js and pnpm on its own; leave build settings at their defaults.
+
+## Public repo
+
+This repo is public so that commits deploy without paid Vercel seats (decision 014 in
+`BBR-engagement`). Never commit secrets: keys and passwords go in each Vercel project's
+environment variables. Commit with a GitHub no-reply email address.
