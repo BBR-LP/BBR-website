@@ -1,0 +1,12 @@
+{
+  "name": "bbr-website",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev:bike": "pnpm --filter @bbr/bike dev",
+    "dev:run": "pnpm --filter @bbr/run dev",
+    "dev:boat": "pnpm --filter @bbr/boat dev",
+    "dev:mothers-day": "pnpm --filter @bbr/mothers-day dev",
+    "build": "pnpm -r --filter './apps/*' build"
+  }
+}
