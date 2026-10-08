@@ -7,7 +7,7 @@ The four Boat Bike Run sites in one repo, built from one shared template (decisi
 apps/bike          bikelakeplacid.us
 apps/run           lakeplacidmarathon.com
 apps/boat          mlboatrental.com
-apps/mothers-day   mothersdayrunlp.com
+apps/mothers-day   mothersdayrunlp.com   (live, Vercel project mothers-day)
 packages/ui        shared components (the template)
 ```
 
