@@ -2,9 +2,15 @@
   "name": "@bbr/mothers-day",
   "version": "0.0.0",
   "private": true,
-  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@bbr/ui": "workspace:*",
+    "@keystatic/core": "^0.6.9",
+    "@keystatic/next": "^5.0.5",
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"
