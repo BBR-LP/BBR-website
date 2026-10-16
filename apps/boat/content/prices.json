@@ -1,0 +1,40 @@
+{
+  "rows": [
+    {
+      "name": "Kayaks (1 and 2 person)",
+      "price": 33
+    },
+    {
+      "name": "Canoes",
+      "price": 33
+    },
+    {
+      "name": "Stand-up paddle boards",
+      "price": 33
+    },
+    {
+      "name": "Row boats",
+      "price": 33
+    },
+    {
+      "name": "Paddle boats",
+      "price": 33
+    },
+    {
+      "name": "Hydro bikes",
+      "price": 33
+    },
+    {
+      "name": "Sail boat",
+      "price": 58
+    },
+    {
+      "name": "Electric boats",
+      "price": 58
+    }
+  ],
+  "notes": [
+    "Cash prices.",
+    "Boats are for 1 or 2 people. A third person is $10 an hour more."
+  ]
+}

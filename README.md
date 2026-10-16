@@ -46,6 +46,12 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
   Proton Pass item "BBR Keystatic GitHub App"): `KEYSTATIC_GITHUB_CLIENT_ID`,
   `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`.
   The same four go in a local, gitignored `.env` in the app folder for local work.
+- **Boat's editing screen** (`apps/boat`) groups what the owners change: a notice across the top
+  of the page, season, daily hours, prices, questions, phone number, and the story. Season, hours
+  and prices are each said once; the hours box, the season question, the booking band and the
+  search details follow from them. Title, main heading, search description, booking link, photos,
+  address and email are locked in code. To try it without GitHub, run `next dev` with
+  `NEXT_PUBLIC_KEYSTATIC_STORAGE=local` (edits write to the content folder; nothing is committed).
 - **Per app:** `keystatic.config.ts` (with `pathPrefix: "apps/<site>"`), `app/keystatic/*`,
   `app/api/keystatic/[...params]/route.ts`, and a `content/` folder.
 

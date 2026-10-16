@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "q": "What's with the lake?",
+      "a": "Huh?"
+    },
+    {
+      "q": "Is this Lake Placid?",
+      "a": "Yes."
+    },
+    {
+      "q": "Then why does it say Mirror Lake Boat Rental?",
+      "a": "Huh?"
+    },
+    {
+      "q": "What if I return a boat late?",
+      "a": "Please bring your boat back by the end of your rental time, and always before dark. If you're late, you pay for another hour. If we have to come out and bring you in, there is a $50 rescue and recovery fee."
+    },
+    {
+      "q": "But I don't have a watch!",
+      "a": "Start counting......NOW!"
+    },
+    {
+      "q": "Are there fish in the lake?",
+      "a": "Several species. Most abundant are the Snarp, Cow-fish and the bottom dweller, Hummerfish (good eating that one)."
+    },
+    {
+      "q": "Does my baby / child / teen count as an additional person?",
+      "a": "According to Dr. Spock, these kinds of questions can severely affect a child's developmental growth and psyche. You are, in fact, questioning their role as a separate entity. Is this really worth saving the $10 additional person fee?"
+    },
+    {
+      "q": "How deep is the lake?",
+      "a": "Deep. However, more importantly, \"How deep is your love\"? (our apologies to the brothers Gibb)"
+    },
+    {
+      "q": "Can I hang out on the dock while my friend / child / spouse/ parent/ dog is out on the boat?",
+      "a": "Of course not."
+    },
+    {
+      "q": "Where's the alligator?",
+      "a": "Betty White ate it. If we could only get rid of Bea Arthur in the same manner."
+    }
+  ]
+}

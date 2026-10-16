@@ -1,0 +1,21 @@
+{
+  "title": "Right in town, right on the water",
+  "body": "Park once, walk down to the water, and be on the lake in minutes. We'll get you set up in the right boat and send you off.",
+  "seasons": [
+    {
+      "season": "Early summer",
+      "title": "Quiet mornings",
+      "line": "Calm water and the park to yourself before the town wakes up."
+    },
+    {
+      "season": "High summer",
+      "title": "Pick your boat",
+      "line": "Kayaks, paddle boards, hydro bikes and more, all at the dock."
+    },
+    {
+      "season": "Fall",
+      "title": "Color on the water",
+      "line": "Open until mid-October, when the hills turn."
+    }
+  ]
+}

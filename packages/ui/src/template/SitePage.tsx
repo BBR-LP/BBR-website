@@ -3,7 +3,7 @@ import { getRace } from "./runsignup";
 import { getSite, sites } from "./registry";
 import { jsonLd, structuredData } from "./structured-data";
 import { typeface } from "./typeface";
-import { BookBand, Footer, GoodToKnow, LocationSection, Photo, RaceDay, Rates, SisterSite } from "./sections";
+import { BookBand, Footer, GoodToKnow, LocationSection, NoticeBar, Photo, RaceDay, Rates, SisterSite } from "./sections";
 import type { SiteContent, SiteSlug } from "./types";
 
 // The shared page template (bre/shared/design-journal/001 and 005): words never sit on photos, a
@@ -19,6 +19,7 @@ export async function SitePage({ slug, content: c }: { slug: SiteSlug; content: 
 
   return (
     <div id="top" className="flex-1 flex flex-col" style={{ ...typeface(site.brand, "body"), fontSize: "1.0625rem", background: color.neutral_surface, color: color.neutral_text }}>
+      {c.notice && <NoticeBar message={c.notice} color={color} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structuredData(site, c, race)) }} />
       <SiteHeader site={site} nav={c.nav} cta={c.cta} ctaHref={c.ctaHref} others={others} />
 

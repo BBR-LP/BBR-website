@@ -45,6 +45,7 @@ export type Business = {
 // One site's page. Words, prices, hours, photos and details; the shared template does the rest.
 // The search description lives in the site registry (it is also what the other sites' cards show).
 export type SiteContent = {
+  notice?: string; // one short line across the top (opening or closing news, a weather closure); empty = nothing shown
   title: string; // page title (the blue link in Google)
   nav: NavItem[]; // the Menu panel: a few sections of this page
   cta: string;

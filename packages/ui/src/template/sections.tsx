@@ -244,3 +244,13 @@ export function Footer({ site, contact, address, dark }: { site: SiteInfo; conta
     </footer>
   );
 }
+
+// One short line across the very top: opening and closing news, a weather closure. Set by the
+// owners in the editing screen; empty means nothing is shown.
+export function NoticeBar({ message, color }: { message: string; color: Palette }) {
+  return (
+    <div role="status" className="px-4 py-3 text-center text-sm font-medium" style={{ background: color.brand_dark, color: color.brand_on_dark }}>
+      {message}
+    </div>
+  );
+}
