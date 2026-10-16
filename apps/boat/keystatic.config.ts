@@ -1,4 +1,12 @@
 import { config, fields, singleton } from "@keystatic/core";
+import { commonSingletons } from "@bbr/ui/cms";
+
+const common = commonSingletons({
+  startLabel: "We open",
+  startExample: "when the ice is off the lake",
+  endLabel: "We stay open until",
+  endExample: "mid-October",
+});
 
 // What Greg and Kristen can change on Boat's page (bre/shared/cms-journal/003 and the editable list
 // agreed 2026-10-16). Everything else (title, main heading, search description, booking link,
@@ -18,36 +26,7 @@ export default config({
     },
   },
   singletons: {
-    notice: singleton({
-      label: "Notice at the top of the page",
-      path: "content/notice",
-      format: { data: "json" },
-      schema: {
-        message: fields.text({
-          label: "Message",
-          description:
-            "One short line across the top of every page: opening or closing news, or a closed-for-weather note. Leave empty to show nothing. Clear it when it is no longer true.",
-          validation: { length: { max: 140 } },
-        }),
-      },
-    }),
-    season: singleton({
-      label: "Season",
-      path: "content/season",
-      format: { data: "json" },
-      schema: {
-        opens: fields.text({
-          label: "We open",
-          description: "Finish the sentence \"We open ...\". For example: when the ice is off the lake",
-          validation: { length: { min: 1 } },
-        }),
-        closes: fields.text({
-          label: "We stay open until",
-          description: "For example: mid-October",
-          validation: { length: { min: 1 } },
-        }),
-      },
-    }),
+    ...common,
     hours: singleton({
       label: "Daily hours",
       path: "content/hours",
@@ -76,53 +55,6 @@ export default config({
           label: "Notes under the prices",
           itemLabel: (props) => props.value,
         }),
-      },
-    }),
-    faq: singleton({
-      label: "Good to know (questions and answers)",
-      path: "content/faq",
-      format: { data: "json" },
-      schema: {
-        items: fields.array(
-          fields.object({
-            q: fields.text({ label: "Question", validation: { length: { min: 1 } } }),
-            a: fields.text({ label: "Answer", multiline: true, validation: { length: { min: 1 } } }),
-          }),
-          {
-            label: "Questions and answers",
-            description: "The season question is added for you from the Season and Daily hours settings.",
-            itemLabel: (props) => props.fields.q.value,
-          },
-        ),
-      },
-    }),
-    contact: singleton({
-      label: "Phone number",
-      path: "content/contact",
-      format: { data: "json" },
-      schema: {
-        phone: fields.text({ label: "Phone", description: "For example: 518-524-7890", validation: { length: { min: 10 } } }),
-      },
-    }),
-    story: singleton({
-      label: "Story and seasons",
-      path: "content/story",
-      format: { data: "json" },
-      schema: {
-        title: fields.text({ label: "Story heading", validation: { length: { min: 1 } } }),
-        body: fields.text({ label: "Story", multiline: true, validation: { length: { min: 1 } } }),
-        seasons: fields.array(
-          fields.object({
-            season: fields.text({ label: "When", description: "For example: Early summer" }),
-            title: fields.text({ label: "Heading" }),
-            line: fields.text({ label: "One line" }),
-          }),
-          {
-            label: "Through the seasons (three cards)",
-            validation: { length: { min: 3, max: 3 } },
-            itemLabel: (props) => props.fields.title.value,
-          },
-        ),
       },
     }),
   },

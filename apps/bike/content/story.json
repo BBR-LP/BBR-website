@@ -1,0 +1,21 @@
+{
+  "title": "We fit you, you ride",
+  "body": "Locks, helmets and chargers come with every rental. We can also bring bikes to your hotel or rental, and help with group rides. Just ask.",
+  "seasons": [
+    {
+      "season": "Summer",
+      "title": "Rail trail rides",
+      "line": "The trail runs from Lake Placid toward Tupper Lake, flat and shaded."
+    },
+    {
+      "season": "Summer",
+      "title": "Bring everyone",
+      "line": "E-bikes, cargo bikes and regular bikes, so nobody sits it out."
+    },
+    {
+      "season": "Any day",
+      "title": "Ride your way",
+      "line": "Two hours, half a day, or a full day. Pedal around town too."
+    }
+  ]
+}

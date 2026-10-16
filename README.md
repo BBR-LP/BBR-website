@@ -11,7 +11,7 @@ apps/mothers-day   mothersdayrunlp.com   (live, Vercel project mothers-day)
 packages/ui        shared components (the template)
 ```
 
-Next.js, pnpm workspaces. `apps/boat` is the first site on the shared page template; the others are
+Next.js, pnpm workspaces. `apps/boat` and `apps/bike` are on the shared page template; the others are
 placeholder pages for now.
 
 ## Local
@@ -46,7 +46,9 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
   Proton Pass item "BBR Keystatic GitHub App"): `KEYSTATIC_GITHUB_CLIENT_ID`,
   `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`.
   The same four go in a local, gitignored `.env` in the app folder for local work.
-- **Boat's editing screen** (`apps/boat`) groups what the owners change: a notice across the top
+- **Shared editing settings** (`packages/ui/src/cms`): the notice, season, questions, phone and story
+  settings are defined once and used by Boat and Bike; each app adds its own hours and prices or rates.
+- **Boat's and Bike's editing screens** (`apps/boat`, `apps/bike`) group what the owners change: a notice across the top
   of the page, season, daily hours, prices, questions, phone number, and the story. Season, hours
   and prices are each said once; the hours box, the season question, the booking band and the
   search details follow from them. Title, main heading, search description, booking link, photos,

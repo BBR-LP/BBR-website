@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "name": "E-mountain bike",
+      "electric": true,
+      "twoHours": 60,
+      "fiveHours": 130,
+      "day": 175
+    },
+    {
+      "name": "Radwagon cargo e-bike",
+      "electric": true,
+      "twoHours": 75,
+      "fiveHours": 165,
+      "day": 200
+    },
+    {
+      "name": "Regular bike",
+      "electric": false,
+      "twoHours": 40,
+      "fiveHours": 75,
+      "day": 100
+    }
+  ],
+  "notes": [
+    "Locks, helmets and chargers included.",
+    "Multi-day rentals, group rates and memberships: get in touch."
+  ]
+}

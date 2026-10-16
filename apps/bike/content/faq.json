@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "q": "Are you really on the bike path?",
+      "a": "Yes. The shop is right on the Adirondack Rail Trail. Drive in, park, get on your bike and ride straight onto the trail."
+    },
+    {
+      "q": "How long is the rail trail?",
+      "a": "About 34 miles, from Lake Placid to Tupper Lake, through Ray Brook and Saranac Lake. It's packed stone most of the way and paved through Saranac Lake village."
+    },
+    {
+      "q": "How far can I get in 2 hours?",
+      "a": "Saranac Lake is about 9 miles from Lake Placid. On an e-bike you can ride there and back in about 2 hours if you keep moving. For an easy pace with stops, turn around around Ray Brook."
+    },
+    {
+      "q": "What comes with the bike?",
+      "a": "A lock, a helmet, and a charger for e-bikes."
+    },
+    {
+      "q": "Can you deliver?",
+      "a": "Yes. We can drop bikes off at your hotel or rental."
+    },
+    {
+      "q": "What if it rains?",
+      "a": "There are no refunds for weather or early returns, so check the forecast before you book."
+    },
+    {
+      "q": "What if I'm late back?",
+      "a": "Late returns are charged by the hour: $30 for e-bikes, $20 for regular bikes."
+    }
+  ]
+}
