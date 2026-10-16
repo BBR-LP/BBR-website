@@ -54,6 +54,10 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
   search details follow from them. Title, main heading, search description, booking link, photos,
   address and email are locked in code. To try it without GitHub, run `next dev` with
   `NEXT_PUBLIC_KEYSTATIC_STORAGE=local` (edits write to the content folder; nothing is committed).
+- **Staff login:** every template page's footer has a small "Staff login" link to `/keystatic`, so
+  nobody needs a bookmark. It is `nofollow` and marked `data-untracked` (keep it out of click
+  tracking), and each app has a `robots.ts` (`editorRobots` from `@bbr/ui`) that tells crawlers to
+  skip `/keystatic` and `/api/keystatic`; the editing screen is also `noindex`.
 - **Per app:** `keystatic.config.ts` (with `pathPrefix: "apps/<site>"`), `app/keystatic/*`,
   `app/api/keystatic/[...params]/route.ts`, and a `content/` folder.
 

@@ -6,5 +6,5 @@ const reader = createReader(process.cwd(), keystaticConfig);
 
 export default async function Home() {
   const notice = await reader.singletons.notice.read();
-  return <ComingSoon name="Mother's Day 10K" note={notice?.message || undefined} />;
+  return <ComingSoon name="Mother's Day 10K" note={notice?.message || undefined} staffLoginHref="/keystatic" />;
 }

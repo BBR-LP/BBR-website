@@ -239,7 +239,12 @@ export function Footer({ site, contact, address, dark }: { site: SiteInfo; conta
             </a>
           ))}
         </div>
-        <div className="mt-10 text-sm opacity-70">© <CurrentYear /> {site.name}</div>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-x-6 text-sm opacity-70">
+          <span>© <CurrentYear /> {site.name}</span>
+          {/* The owners' way into the editing screen, so nobody needs a bookmark (turph, 2026-10-16). Every
+              template site has one at /keystatic. Not followed by crawlers; leave it out of click tracking. */}
+          <a href="/keystatic" rel="nofollow" data-untracked className="inline-block py-2 underline underline-offset-4 hover:opacity-100">Staff login</a>
+        </div>
       </div>
     </footer>
   );
