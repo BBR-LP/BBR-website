@@ -1,5 +1,5 @@
 import { config, fields, singleton } from "@keystatic/core";
-import { commonSingletons } from "@bbr/ui/cms";
+import { commonSingletons, keystaticBrand } from "@bbr/ui/cms";
 
 const common = commonSingletons({
   startLabel: "We open",
@@ -20,6 +20,7 @@ export default config({
       ? { kind: "local" }
       : { kind: "github", repo: { owner: "BBR-LP", name: "BBR-website" }, pathPrefix: "apps/boat" },
   ui: {
+    brand: keystaticBrand("boat"),
     navigation: {
       "Things you change often": ["notice", "season", "hours", "prices"],
       "Now and then": ["faq", "contact", "story"],

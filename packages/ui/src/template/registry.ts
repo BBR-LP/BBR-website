@@ -3,7 +3,9 @@ import boat from "../brands/boat.json";
 import run from "../brands/run.json";
 import mothersDay from "../brands/mothers-day.json";
 import bikeLogo from "../logos/bike-logo.png";
+import bikeMark from "../logos/bike-mark.png";
 import boatLogoWhite from "../logos/boat-logo-white.svg";
+import boatMark from "../logos/boat-mark.svg";
 import runLogo from "../logos/run-logo.svg";
 import type { Brand, SiteSlug } from "./types";
 
@@ -16,6 +18,7 @@ export type SiteInfo = {
   url: string; // the live address the cards link to
   logo: string | null; // null: no logo yet, the name is set in the brand's heading font
   logoOnDark: boolean; // white logo, shown on the brand color
+  mark: { src: string; wide?: boolean; onBrand?: boolean } | null; // small square mark for the editing screen (null: name only)
   brand: Brand;
   description: string;
 };
@@ -27,6 +30,7 @@ export const sites: SiteInfo[] = [
     url: "https://www.mlboatrental.com/",
     logo: boatLogoWhite.src,
     logoOnDark: true,
+    mark: { src: boatMark.src, wide: true, onBrand: true }, // the symbol alone (white, wide) on Boat blue
     brand: boat,
     description: "Kayaks, paddle boards, canoes, sailboats and electric boats on Mirror Lake, off Main Street in Lake Placid. Open daily until dark. Walk up or book online.",
   },
@@ -36,6 +40,7 @@ export const sites: SiteInfo[] = [
     url: "https://www.bikelakeplacid.us/",
     logo: bikeLogo.src,
     logoOnDark: false,
+    mark: { src: bikeMark.src },
     brand: bike,
     // Hours confirmed by Greg 2026-10-14: until 5, season from snow-off-the-trail to about Halloween.
     description: "E-bike rentals right on the Adirondack Rail Trail in Lake Placid. Drive in, park and ride. Helmets and locks included. Open daily 9 to 5. Book online.",
@@ -46,6 +51,7 @@ export const sites: SiteInfo[] = [
     url: "https://lakeplacidmarathon.com/",
     logo: runLogo.src,
     logoOnDark: false,
+    mark: null,
     brand: run,
     // Draft: Run's wording is on hold until settled with Greg and Kristen (Clients #60).
     description: "Run the Lake Placid Marathon, Half Marathon or 10K past the Olympic sites of Lake Placid, NY. A certified course and Boston Marathon qualifier. See the race day, prices and course, and register online.",
@@ -56,6 +62,7 @@ export const sites: SiteInfo[] = [
     url: "https://lakeplacidmarathon.com/mothers-day-10k/",
     logo: null,
     logoOnDark: false,
+    mark: null, // the only badge has 2026 printed on it; name only until there is an undated mark
     brand: mothersDay,
     description: "A 10K and a 5K you can run with your dog or stroller, on the Adirondack Rail Trail in Lake Placid, NY, the Saturday before Mother's Day. See the race day and prices, and register online.",
   },

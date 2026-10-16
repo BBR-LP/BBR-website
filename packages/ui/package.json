@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./cms": "./src/cms/singletons.ts"
+    "./cms": "./src/cms/index.ts"
   },
   "peerDependencies": {
     "next": "^16",
