@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "business": "Mirror Lake Boat Rental",
+    "domain": "mlboatrental.com",
+    "extracted": "2026-09-11, directly from the live site's computed styles and logo file — not invented",
+    "status": "draft — no client brand guide exists, so we own these (decisions/010). Colours and fonts settled; not yet shown to Greg/Kristen",
+    "colors": "settled 2026-10-06 to WCAG 2.2 AA: primary in shared/design-journal/003-primary-and-neutral-palettes.md, secondary in 002",
+    "fonts": "settled 2026-10-06: see shared/design-journal/004-font-suite.md"
+  },
+  "color": {
+    "brand_primary": "#077BBB",
+    "primary_action": "#0472AF",
+    "primary_action_hover": "#015D91",
+    "on_primary": "#FFFFFF",
+    "primary_subtle": "#EAF5FE",
+    "brand_dark": "#012943",
+    "brand_on_dark": "#FFFFFF",
+    "brand_secondary": "#73BE44",
+    "on_secondary": "#1D3F01",
+    "secondary_text": "#3A7401",
+    "secondary_subtle": "#EDFCE6",
+    "neutral_surface": "#FFFFFF",
+    "neutral_bg": "#F3F7FB",
+    "neutral_border": "#DDE2E6",
+    "neutral_border_strong": "#838B93",
+    "neutral_text": "#1E2830",
+    "neutral_text_muted": "#636E78"
+  },
+  "font": {
+    "heading": "Outfit, sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "font_weight": {
+    "heading": 500,
+    "body": 400
+  },
+  "logo": {
+    "file": "logo-white.svg",
+    "variant": "white line art, designed to sit on Boat's blue or dark navy, not on a white page",
+    "color": "logo-color.svg",
+    "color_variant": "full colour (blue, light-blue waves, green 'Lake Placid'), for white or light backgrounds",
+    "note": "Both SVGs were cut from the Boat logo inside client-supplied/2026-10-06-run-logo-vectors/LPM MLBR Full Color.pdf (2017) and match the current logo; logo-white.svg is the same shapes recoloured white. The 2013 EPS (client-supplied/2026-10-05-greg-logos/boatlogo.eps) is the original source but needs Ghostscript to open.",
+    "suite": [
+      {
+        "file": "logo-white.svg",
+        "name": "Main logo, on blue or dark",
+        "background": "dark",
+        "main": true
+      },
+      {
+        "file": "logo-color.svg",
+        "name": "Full color, on white",
+        "background": "light",
+        "main": false
+      }
+    ],
+    "suite_status": null,
+    "suite_main_note": "'main': true marks the logos shown on the sandbox style guide"
+  },
+  "primary_scale": {
+    "50": "#F0F8FF",
+    "100": "#DDF0FF",
+    "200": "#BEE1FE",
+    "300": "#93CFFE",
+    "400": "#5CBAFE",
+    "500": "#40A0E3",
+    "600": "#1C84C5",
+    "700": "#0169A1",
+    "800": "#044F7A",
+    "900": "#01395A"
+  },
+  "secondary_scale": {
+    "50": "#EDFCE6",
+    "100": "#DBF7CC",
+    "200": "#BEEDA6",
+    "300": "#9EDC7A",
+    "400": "#7FC851",
+    "500": "#67AE34",
+    "600": "#4C9207",
+    "700": "#3A7401",
+    "800": "#2B5702",
+    "900": "#1D3F01"
+  }
+}

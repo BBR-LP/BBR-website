@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "business": "Mother's Day 10K",
+    "domain": "none yet (currently lakeplacidmarathon.com/mothers-day-10k/)",
+    "extracted": "2026-10-05, from the live page's computed styles: it has no brand of its own and uses the marathon's fonts and navy",
+    "status": "colours and fonts shared with Run, plus its own lilac secondary (see ../README.md for whether it gets a fuller look of its own)",
+    "colors": "settled 2026-10-06 to WCAG 2.2 AA: primary in shared/design-journal/003-primary-and-neutral-palettes.md, secondary in 002",
+    "fonts": "settled 2026-10-06: see shared/design-journal/004-font-suite.md"
+  },
+  "color": {
+    "brand_primary": "#24366E",
+    "primary_action": "#24366E",
+    "primary_action_hover": "#142359",
+    "on_primary": "#FFFFFF",
+    "primary_subtle": "#EFF3FE",
+    "brand_dark": "#132252",
+    "brand_on_dark": "#FFFFFF",
+    "brand_secondary": "#CB9AE8",
+    "on_secondary": "#442754",
+    "secondary_text": "#794E92",
+    "secondary_subtle": "#FAF4FF",
+    "neutral_surface": "#FFFFFF",
+    "neutral_bg": "#F5F7FB",
+    "neutral_border": "#DFE1E7",
+    "neutral_border_strong": "#868A94",
+    "neutral_text": "#222630",
+    "neutral_text_muted": "#686D7A"
+  },
+  "font": {
+    "heading": "\"Bebas Neue\", sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "font_weight": {
+    "heading": 400,
+    "body": 400
+  },
+  "logo": {
+    "file": null,
+    "note": "badge-2026.jpg is Greg's 'MD 10K logo.jpg' (client-supplied/2026-10-05-greg-logos/) cropped to the badge. Low-res JPEG with the year built in; the sandbox still shows the site name as text in headers.",
+    "suite": [
+      {
+        "file": "badge-2026.jpg",
+        "name": "2026 race badge",
+        "background": "light",
+        "main": true
+      }
+    ],
+    "suite_status": "The year is built into this badge, and it's a small image file. A clean version without the year is on the list to ask for.",
+    "suite_main_note": "'main': true marks the logos shown on the sandbox style guide"
+  },
+  "primary_scale": {
+    "50": "#F4F7FE",
+    "100": "#E5EDFF",
+    "200": "#CEDCFE",
+    "300": "#B0C6FE",
+    "400": "#95AFF1",
+    "500": "#7D96D6",
+    "600": "#637BB9",
+    "700": "#4C6099",
+    "800": "#364878",
+    "900": "#263359"
+  },
+  "secondary_scale": {
+    "50": "#FAF4FF",
+    "100": "#F5E6FF",
+    "200": "#ECD0FF",
+    "300": "#DEB4F8",
+    "400": "#CB9AE8",
+    "500": "#B182CE",
+    "600": "#9567B1",
+    "700": "#794E92",
+    "800": "#5D3872",
+    "900": "#442754"
+  }
+}

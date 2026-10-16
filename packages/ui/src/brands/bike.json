@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "business": "Bike Lake Placid Rail Trail Rentals",
+    "domain": "bikelakeplacid.us",
+    "extracted": "2026-09-11, directly from the live site's computed styles and logo file — not invented",
+    "status": "draft — no client brand guide exists, so we own these (decisions/010). Colours and fonts settled; not yet shown to Greg/Kristen",
+    "colors": "settled 2026-10-06 to WCAG 2.2 AA: primary in shared/design-journal/003-primary-and-neutral-palettes.md, secondary in 002",
+    "fonts": "settled 2026-10-06: see shared/design-journal/004-font-suite.md"
+  },
+  "color": {
+    "brand_primary": "#008BC9",
+    "primary_action": "#0474A7",
+    "primary_action_hover": "#045F89",
+    "on_primary": "#FFFFFF",
+    "primary_subtle": "#EAF5FE",
+    "brand_dark": "#06364D",
+    "brand_on_dark": "#FFFFFF",
+    "brand_secondary": "#EF9D05",
+    "on_secondary": "#00334A",
+    "secondary_text": "#885804",
+    "secondary_subtle": "#FFF5EA",
+    "neutral_surface": "#FFFFFF",
+    "neutral_bg": "#F3F7FA",
+    "neutral_border": "#DDE2E6",
+    "neutral_border_strong": "#828B92",
+    "neutral_text": "#1D282F",
+    "neutral_text_muted": "#626F77"
+  },
+  "font": {
+    "heading": "\"Barlow Condensed\", sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "font_weight": {
+    "heading": 700,
+    "body": 400
+  },
+  "logo": {
+    "file": "logo.png",
+    "variant": "full-color, reads clearly on a light/white background",
+    "note": "logo.png is pixel-identical to Greg's 'BLP Primary.png'; logo-stacked.png and profile-image.png (resized to 1200px from 4501px) are copied from client-supplied/2026-10-05-greg-logos/. All raster; ask Greg for vector originals. logo.webp is the live site's export of the same logo.",
+    "suite": [
+      {
+        "file": "logo.png",
+        "name": "Main logo",
+        "background": "light",
+        "main": true
+      },
+      {
+        "file": "logo-stacked.png",
+        "name": "Stacked",
+        "background": "light",
+        "main": true
+      },
+      {
+        "file": "profile-image.png",
+        "name": "Social media profile picture",
+        "background": "light",
+        "main": false
+      }
+    ],
+    "suite_status": "Image files only so far. Vector versions are on the list to ask for.",
+    "suite_main_note": "'main': true marks the logos shown on the sandbox style guide"
+  },
+  "primary_scale": {
+    "50": "#EFF8FF",
+    "100": "#DCF0FF",
+    "200": "#BBE2FE",
+    "300": "#8BD0FF",
+    "400": "#50BCFD",
+    "500": "#31A2E2",
+    "600": "#0386C2",
+    "700": "#046A9B",
+    "800": "#015076",
+    "900": "#013A56"
+  },
+  "secondary_scale": {
+    "50": "#FFF5EA",
+    "100": "#FEE9D0",
+    "200": "#FED4A1",
+    "300": "#FFB757",
+    "400": "#EF9D05",
+    "500": "#CE8708",
+    "600": "#AB6F01",
+    "700": "#885804",
+    "800": "#674102",
+    "900": "#4B2F02"
+  }
+}

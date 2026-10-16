@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "business": "Lake Placid Marathon",
+    "domain": "lakeplacidmarathon.com",
+    "extracted": "2026-09-11, directly from the live site's computed styles and logo file — not invented",
+    "status": "draft — no client brand guide exists, so we own these (decisions/010). Colours and fonts settled; not yet shown to Greg/Kristen",
+    "colors": "settled 2026-10-06 to WCAG 2.2 AA: primary in shared/design-journal/003-primary-and-neutral-palettes.md, secondary in 002",
+    "fonts": "settled 2026-10-06: see shared/design-journal/004-font-suite.md"
+  },
+  "color": {
+    "brand_primary": "#24366E",
+    "primary_action": "#24366E",
+    "primary_action_hover": "#142359",
+    "on_primary": "#FFFFFF",
+    "primary_subtle": "#EFF3FE",
+    "brand_dark": "#132252",
+    "brand_on_dark": "#FFFFFF",
+    "brand_secondary": "#BF2026",
+    "on_secondary": "#FFFFFF",
+    "secondary_text": "#BF2026",
+    "secondary_subtle": "#FFF4F3",
+    "neutral_surface": "#FFFFFF",
+    "neutral_bg": "#F5F7FB",
+    "neutral_border": "#DFE1E7",
+    "neutral_border_strong": "#868A94",
+    "neutral_text": "#222630",
+    "neutral_text_muted": "#686D7A"
+  },
+  "font": {
+    "heading": "\"Bebas Neue\", sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "font_weight": {
+    "heading": 400,
+    "body": 400
+  },
+  "logo": {
+    "file": "logo.svg",
+    "variant": "full-color badge reading 'MARATHON', no sponsor line, no year; the main logo (chosen 2026-10-06 over 'Marathon and Half' for simplicity)",
+    "also": {
+      "presented_by_mlbr": "logo-presented-by-mlbr.svg",
+      "distance_badges": {
+        "marathon": "races/marathon.svg",
+        "half": "races/half.svg"
+      },
+      "distance_icons": {
+        "marathon": "icon-26-2.svg",
+        "half": "icon-13-1.svg",
+        "marathon_on_dark": "icon-26-2-white.svg",
+        "half_on_dark": "icon-13-1-white.svg"
+      }
+    },
+    "note": "Vector SVGs cropped from client-supplied/2026-10-06-run-logo-vectors/ (see its NOTES.md). Use a distance badge or icon on pages about one race.",
+    "suite": [
+      {
+        "file": "logo.svg",
+        "name": "Main logo",
+        "background": "light",
+        "main": true
+      },
+      {
+        "file": "logo-presented-by-mlbr.svg",
+        "name": "With sponsor",
+        "background": "light",
+        "main": false
+      },
+      {
+        "file": "races/marathon.svg",
+        "name": "Marathon badge",
+        "background": "light",
+        "main": false
+      },
+      {
+        "file": "races/half.svg",
+        "name": "Half marathon badge",
+        "background": "light",
+        "main": false
+      },
+      {
+        "file": "icon-26-2.svg",
+        "name": "Marathon icon",
+        "background": "light",
+        "main": false
+      },
+      {
+        "file": "icon-13-1.svg",
+        "name": "Half marathon icon",
+        "background": "light",
+        "main": false
+      },
+      {
+        "file": "icon-26-2-white.svg",
+        "name": "Marathon icon, on dark",
+        "background": "dark",
+        "main": false
+      },
+      {
+        "file": "icon-13-1-white.svg",
+        "name": "Half marathon icon, on dark",
+        "background": "dark",
+        "main": false
+      }
+    ],
+    "suite_status": null,
+    "suite_main_note": "'main': true marks the logos shown on the sandbox style guide"
+  },
+  "primary_scale": {
+    "50": "#F4F7FE",
+    "100": "#E5EDFF",
+    "200": "#CEDCFE",
+    "300": "#B0C6FE",
+    "400": "#95AFF1",
+    "500": "#7D96D6",
+    "600": "#637BB9",
+    "700": "#4C6099",
+    "800": "#364878",
+    "900": "#263359"
+  },
+  "secondary_scale": {
+    "50": "#FFF4F3",
+    "100": "#FEE7E4",
+    "200": "#FECFCA",
+    "300": "#FFB0A8",
+    "400": "#FF8B81",
+    "500": "#F75D57",
+    "600": "#D73E3C",
+    "700": "#B32225",
+    "800": "#8E0813",
+    "900": "#6A0109"
+  }
+}
