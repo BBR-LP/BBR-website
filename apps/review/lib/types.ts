@@ -27,7 +27,7 @@ export type Photo = {
 };
 
 export type Action = "use" | "keep_off" | "unsure" | "clear";
-export type Decision = { at: string; who: string; sha: string; action: Action; site?: Site | null; note?: string; children_ok?: boolean };
+export type Decision = { at: string; who: string; sha: string; action: Action; site?: Site | null; note?: string; children_ok?: boolean; by?: string };
 
 export type Section = { key: string; label: string; note?: string; items: Photo[] };
 

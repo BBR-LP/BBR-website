@@ -15,7 +15,7 @@ const STATE = {
 const niceDate = (t: string | null) =>
   t ? new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "date unknown";
 
-export function ReviewGrid({ sections, initial, made }: { sections: Sec[]; initial: Record<string, Decision>; made: string }) {
+export function ReviewGrid({ sections, initial, made, login }: { sections: Sec[]; initial: Record<string, Decision>; made: string; login?: string }) {
   const [decisions, setDecisions] = useState(initial);
   const [tab, setTab] = useState(sections[0]?.key ?? "");
   const [who, setWho] = useState("");
@@ -65,6 +65,11 @@ export function ReviewGrid({ sections, initial, made }: { sections: Sec[]; initi
         body: JSON.stringify({ who: who.trim(), sha: p.sha256, action, site, note: extra.note }),
       });
       const body = await r.json();
+      if (r.status === 401 || body.signedOut) {
+        setDecisions(before);
+        setError("SIGNED_OUT");
+        return;
+      }
       if (!r.ok) throw new Error(body.error ?? "Not saved");
     } catch (e) {
       setDecisions(before);
@@ -89,6 +94,13 @@ export function ReviewGrid({ sections, initial, made }: { sections: Sec[]; initi
                 {decided} of {all.length} chosen · {count("use")} use · {count("keep_off")} keep off · {count("unsure")} not sure
               </p>
             </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {login && (
+              <form method="post" action="/api/auth/logout" className="text-sm text-stone-600">
+                Signed in as {login} ·{" "}
+                <button type="submit" className="underline">Sign out</button>
+              </form>
+            )}
             <label className="flex items-center gap-2 text-sm">
               <span className="text-stone-600">Your first name</span>
               <input
@@ -99,6 +111,7 @@ export function ReviewGrid({ sections, initial, made }: { sections: Sec[]; initi
                 autoComplete="given-name"
               />
             </label>
+            </div>
           </div>
           <div className="mt-2 flex h-2 overflow-hidden rounded-full bg-stone-200" role="progressbar" aria-valuenow={decided} aria-valuemax={all.length}>
             {bar("use", "bg-emerald-500")}
@@ -127,7 +140,11 @@ export function ReviewGrid({ sections, initial, made }: { sections: Sec[]; initi
       <main className="mx-auto max-w-6xl px-4 py-5">
         {error && (
           <p role="alert" className="mb-4 rounded-md border border-rose-300 bg-rose-50 px-4 py-3 text-rose-800">
-            {error}
+            {error === "SIGNED_OUT" ? (
+              <>Your sign-in has run out, so that choice was not saved. <a href="/api/auth/login" className="font-semibold underline">Sign in again</a>, then tap it once more.</>
+            ) : (
+              error
+            )}
           </p>
         )}
         {section?.note && <p className="mb-4 max-w-3xl text-stone-700">{section.note}</p>}

@@ -67,10 +67,23 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
 ## The photo review page (`apps/review`)
 
 A private page for Kristen to choose photos (Use, Keep off, Not sure) with every choice logged. It is **not
-public and not deployed**: it serves nothing unless `REVIEW_MODE=local` and `REVIEW_DATA_DIR` point at a
-folder made by `photo-tools` (`review-prep`), and that folder is never in git. To try it:
-`REVIEW_MODE=local REVIEW_DATA_DIR=<folder> pnpm --filter @bbr/review dev`. Plan and the steps still to build
-(sign-in, Dropbox source, publish): `bre/shared/photo-journal/001-workflow-plan.md`, Part 5.
+public and not deployed**, and it serves nothing until one of two modes is configured:
+
+- **`REVIEW_MODE=local`** with `REVIEW_DATA_DIR=<folder>` (made by `photo-tools review-prep`; never in git):
+  no sign-in, for trying it on one machine.
+- **`REVIEW_MODE=github`**: **sign in with GitHub** (the GitHub App "BBR-LP Photo Review"), and the page reads
+  its batches and writes every choice to the **private repo `BBR-LP/BBR-photo-data`** with the signed-in
+  person's own token, so each choice is a commit under their name. Settings in `.env.example`.
+
+How sign-in works: the person goes to GitHub and comes back with a one-time code; the server swaps it for the
+person's token, checks that the token can **write to the data repo** (a person who cannot is turned away), and
+keeps it in an **encrypted, HttpOnly cookie** (8 hours; no database). Saves must come from the page's own
+address. Choices queue in the server and retry if two people save at once. Until the business Dropbox is
+connected (Clients #96), a hosted page shows a stand-in image instead of each photo.
+
+Test without GitHub: `node apps/review/tools/mock-github.mjs --batch <sorted.json>` stands in for GitHub
+(sign-in, a person without access, an expired sign-in, a save collision). Plan and the steps still to build
+(Dropbox source, publish, the Vercel project): `bre/shared/photo-journal/001-workflow-plan.md`, Part 5.
 
 ## The shared page template
 
