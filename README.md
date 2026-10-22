@@ -78,12 +78,18 @@ public and not deployed**, and it serves nothing until one of two modes is confi
 How sign-in works: the person goes to GitHub and comes back with a one-time code; the server swaps it for the
 person's token, checks that the token can **write to the data repo** (a person who cannot is turned away), and
 keeps it in an **encrypted, HttpOnly cookie** (8 hours; no database). Saves must come from the page's own
-address. Choices queue in the server and retry if two people save at once. Until the business Dropbox is
-connected (Clients #96), a hosted page shows a stand-in image instead of each photo.
+address. Choices queue in the server and retry if two people save at once.
 
-Test without GitHub: `node apps/review/tools/mock-github.mjs --batch <sorted.json>` stands in for GitHub
-(sign-in, a person without access, an expired sign-in, a save collision). Plan and the steps still to build
-(Dropbox source, publish, the Vercel project): `bre/shared/photo-journal/001-workflow-plan.md`, Part 5.
+Pictures: the hosted page asks the business Dropbox for one small JPEG at a time (`get_thumbnail_v2`, read-only
+Dropbox app, long-lived refresh token swapped for a short-lived access token), so no copies are stored. Each photo's
+Dropbox path comes from the batch (photo-tools `sort --dropbox-root /Photography`), never from the browser's
+request. Set `REVIEW_DROPBOX_APP_KEY`, `_APP_SECRET`, `_REFRESH_TOKEN` (the last from
+`node --env-file=.env apps/review/tools/dropbox-token.mjs`); without them the page shows "Photo not connected yet".
+
+Test without the real services: `node apps/review/tools/mock-github.mjs --batch <sorted.json>` stands in for GitHub
+(sign-in, a person without access, an expired sign-in, a save collision) and `node apps/review/tools/mock-dropbox.mjs
+--batch <sorted.json> --thumbs <review-data/thumbs>` for Dropbox (expired token, missing file). Plan and the steps
+still to build (publish, the Vercel project): `bre/shared/photo-journal/001-workflow-plan.md`, Part 5.
 
 ## The shared page template
 

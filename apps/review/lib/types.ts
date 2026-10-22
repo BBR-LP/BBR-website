@@ -24,6 +24,7 @@ export type Photo = {
   usable: { web: boolean; banner: boolean; copy: boolean };
   reasons: string[];
   conflict: boolean;
+  dropbox_path?: string | null;
 };
 
 export type Action = "use" | "keep_off" | "unsure" | "clear";
