@@ -64,6 +64,14 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
 - **Per app:** `keystatic.config.ts` (with `pathPrefix: "apps/<site>"`), `app/keystatic/*`,
   `app/api/keystatic/[...params]/route.ts`, and a `content/` folder.
 
+## The photo review page (`apps/review`)
+
+A private page for Kristen to choose photos (Use, Keep off, Not sure) with every choice logged. It is **not
+public and not deployed**: it serves nothing unless `REVIEW_MODE=local` and `REVIEW_DATA_DIR` point at a
+folder made by `photo-tools` (`review-prep`), and that folder is never in git. To try it:
+`REVIEW_MODE=local REVIEW_DATA_DIR=<folder> pnpm --filter @bbr/review dev`. Plan and the steps still to build
+(sign-in, Dropbox source, publish): `bre/shared/photo-journal/001-workflow-plan.md`, Part 5.
+
 ## The shared page template
 
 `packages/ui/src/template` is the page every site uses: header, hero, booking section, seasons,
