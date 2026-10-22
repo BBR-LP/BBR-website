@@ -1,0 +1,13 @@
+{
+  "name": "Testing #1 photo",
+  "file": "/photos/library/testing-1-photo/file.png",
+  "alt": "Cartoon me",
+  "credit": "Famous person",
+  "people": "none",
+  "shotYear": 2076,
+  "slots": [
+    "seasons"
+  ],
+  "focal": "center",
+  "status": "approved"
+}
