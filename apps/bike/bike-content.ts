@@ -1,5 +1,5 @@
 import { createReader } from "@keystatic/core/reader";
-import { pickPhotos, readPhotoRecords, type SiteContent } from "@bbr/ui";
+import { pickGallery, pickPhotos, readPhotoRecords, type SiteContent } from "@bbr/ui";
 import keystaticConfig from "./keystatic.config";
 
 // Bike Lake Placid's page. What the owners change (notice, season, hours, rates, questions, phone,
@@ -72,7 +72,8 @@ export async function getBikeContent(): Promise<SiteContent> {
 
   // A photo a person has chosen in the editing screen (Photos, "Where to use it") replaces the stand-in
   // for that spot; with none chosen the stand-in stays.
-  const picks = pickPhotos(await readPhotoRecords(reader.collections.photos));
+  const photoRecords = await readPhotoRecords(reader.collections.photos);
+  const picks = pickPhotos(photoRecords);
   const seasonPhotos = [
     picks["season-1"] ?? photo("teal-ebike-on-trail", "An e-bike parked on the rail trail"),
     picks["season-2"] ?? photo("group-of-friends-ebikes", "Friends and family on e-bikes"),
@@ -98,6 +99,7 @@ export async function getBikeContent(): Promise<SiteContent> {
     },
     seasons: st.seasons.map((x, i) => ({ season: x.season, title: x.title, line: x.line, photo: seasonPhotos[i] })),
     story: { photo: picks.story ?? photo("staff-on-shop-steps", "The crew on the shop steps"), title: st.title, body: st.body },
+    gallery: { title: "Out on the trail", photos: pickGallery(photoRecords) },
     rates: {
       title: "Rates",
       columns: ["2 hours", "5 hours", "24 hours"],

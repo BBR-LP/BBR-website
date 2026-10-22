@@ -9,6 +9,16 @@ import { photoSlots } from "../template/photo-slots";
 // The slot names are the words Greg and Kristen see ("Home banner"), never a file path; the list is
 // template/photo-slots.ts, which the pages read the same way.
 
+// 2021 (the oldest race records we hold) up to this year, newest first. Worked out when the editing
+// screen loads in the browser, so 2027 appears on 1 January 2027 with no change to the code.
+export const FIRST_PHOTO_YEAR = 2021;
+export const UNKNOWN_YEAR = "unknown";
+export function photoYears(now = new Date()) {
+  const years = [];
+  for (let y = now.getFullYear(); y >= FIRST_PHOTO_YEAR; y--) years.push({ label: String(y), value: String(y) });
+  return [...years, { label: `Before ${FIRST_PHOTO_YEAR}, or not known`, value: UNKNOWN_YEAR }];
+}
+
 export function photoCollection() {
   return collection({
     label: "Photos",
@@ -47,7 +57,12 @@ export function photoCollection() {
         ],
         defaultValue: "none",
       }),
-      shotYear: fields.integer({ label: "Year it was taken", description: "So an old year's banner doesn't stay up by accident.", validation: { min: 2000, max: 2100 } }),
+      shotYear: fields.select({
+        label: "Year it was taken",
+        description: "So an old year's banner doesn't stay up by accident. Filled in for you when we know it.",
+        options: photoYears(),
+        defaultValue: UNKNOWN_YEAR,
+      }),
       slots: fields.multiselect({
         label: "Where to use it",
         description: "Choose where on the page it can appear. Leave empty and it is not shown anywhere yet.",

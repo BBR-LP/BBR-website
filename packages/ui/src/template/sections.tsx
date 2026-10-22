@@ -1,3 +1,4 @@
+import { Carousel } from "./Carousel";
 import { CurrentYear } from "./CurrentYear";
 import { SiteLogo } from "./SiteLogo";
 import { typeface } from "./typeface";
@@ -18,6 +19,24 @@ export function Photo({ shot, from, to, className = "" }: { shot: Shot; from: st
 
 type Palette = Brand["color"];
 type Heading = ReturnType<typeof typeface>;
+
+// A row of the site's photos to swipe through, between the story and the prices.
+export function Gallery({ gallery, color, heading }: { gallery: { title: string; photos: Shot[] }; color: Palette; heading: Heading }) {
+  return (
+    <section id="gallery" className="mx-auto max-w-6xl w-full px-4 py-24 scroll-mt-20">
+      <h2 className="text-3xl text-center" style={heading}>{gallery.title}</h2>
+      <div className="mt-10">
+        <Carousel label={gallery.title} buttonBg={color.primary_action} buttonText={color.on_primary}>
+          {gallery.photos.map((p) => (
+            <li key={p.src} className="snap-start shrink-0 basis-[85%] sm:basis-[46%] lg:basis-[32%]">
+              <Photo shot={p} from={color.brand_primary} to={color.brand_dark} className="aspect-[4/3] rounded-lg" />
+            </li>
+          ))}
+        </Carousel>
+      </div>
+    </section>
+  );
+}
 
 export function MainButton({ href, label, color }: { href: string; label: string; color: Palette }) {
   return (

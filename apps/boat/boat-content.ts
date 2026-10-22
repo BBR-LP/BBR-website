@@ -1,5 +1,5 @@
 import { createReader } from "@keystatic/core/reader";
-import { pickPhotos, readPhotoRecords, type SiteContent } from "@bbr/ui";
+import { pickGallery, pickPhotos, readPhotoRecords, type SiteContent } from "@bbr/ui";
 import keystaticConfig from "./keystatic.config";
 
 // Mirror Lake Boat Rental's page. What the owners change (notice, season, hours, prices, questions,
@@ -53,7 +53,8 @@ export async function getBoatContent(): Promise<SiteContent> {
 
   // A photo a person has chosen in the editing screen (Photos, "Where to use it") replaces the stand-in
   // for that spot; with none chosen the stand-in stays.
-  const picks = pickPhotos(await readPhotoRecords(reader.collections.photos));
+  const photoRecords = await readPhotoRecords(reader.collections.photos);
+  const picks = pickPhotos(photoRecords);
   const seasonPhotos = [
     picks["season-1"] ?? photo("attachment-8-wide", "The lakeside park by the dock"),
     picks["season-2"] ?? photo("attachment-8-portrait", "The dock lined with kayaks and paddle boats"),
@@ -76,6 +77,7 @@ export async function getBoatContent(): Promise<SiteContent> {
     book: { title: "Get out on the water", line: `Boats from $${low} an hour. No reservation needed: walk down to the dock, or book ahead to pay by card.` },
     seasons: st.seasons.map((x, i) => ({ season: x.season, title: x.title, line: x.line, photo: seasonPhotos[i] })),
     story: { photo: picks.story ?? photo("attachment-9-wide", "The lawn and dock next to Brewster Park"), title: st.title, body: st.body },
+    gallery: { title: "Around the dock", photos: pickGallery(photoRecords) },
     rates: {
       title: "Prices",
       columns: ["Per hour"],

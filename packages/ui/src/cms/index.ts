@@ -1,3 +1,3 @@
 export { commonSingletons } from "./singletons";
 export { keystaticBrand } from "./brand";
-export { photoCollection } from "./photos";
+export { photoCollection, photoYears } from "./photos";

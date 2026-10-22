@@ -56,6 +56,7 @@ export type SiteContent = {
   book?: { title: string; line: string }; // the main-button section right after the hero (rentals; races use raceId)
   seasons: Season[];
   story: { photo: Shot; title: string; body: string };
+  gallery?: { title: string; photos: Shot[] }; // a swipeable row of up to 7 photos after the story; not shown when there are none
   rates?: RateTable;
   hours?: { title: string; lines: string[] };
   raceId?: number; // RunSignUp race: date, events, start times and prices are read live, shown right after the hero
