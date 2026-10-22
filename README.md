@@ -80,6 +80,9 @@ person's token, checks that the token can **write to the data repo** (a person w
 keeps it in an **encrypted, HttpOnly cookie** (8 hours; no database). Saves must come from the page's own
 address. Choices queue in the server and retry if two people save at once.
 
+Live at https://bbr-photo-review.vercel.app (Vercel project `bbr-photo-review`, Root Directory `apps/review`; the
+variables from `.env.example` are set for Production only, with a session secret different from any local one).
+
 Pictures: the hosted page asks the business Dropbox for one small JPEG at a time (`get_thumbnail_v2`, read-only
 Dropbox app, long-lived refresh token swapped for a short-lived access token), so no copies are stored. Each photo's
 Dropbox path comes from the batch (photo-tools `sort --dropbox-root /Photography`), never from the browser's
