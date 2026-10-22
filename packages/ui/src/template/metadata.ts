@@ -13,7 +13,7 @@ export async function siteMetadata(slug: SiteSlug, c: SiteContent, opts: { index
     metadataBase: new URL(new URL(site.url).origin), // where share images resolve once the site is live there
     title: c.title,
     description,
-    openGraph: { title: c.title, description, siteName: site.name, ...(c.hero.photo.src && { images: [c.hero.photo.src] }) },
+    openGraph: { title: c.title, description, siteName: site.name, ...((c.shareImage ?? c.hero.photo.src) && { images: [(c.shareImage ?? c.hero.photo.src)!] }) },
     robots: opts.indexable ? undefined : { index: false, follow: false },
   };
 }

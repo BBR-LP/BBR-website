@@ -7,7 +7,7 @@ import type { Brand, Location, Place, RateTable, Shot, SiteContent } from "./typ
 
 // A photo, or until one exists, a colored block with the brief saying what the photo should show.
 export function Photo({ shot, from, to, className = "" }: { shot: Shot; from: string; to: string; className?: string }) {
-  if (shot.src) return <img src={shot.src} alt={shot.brief} className={`w-full object-cover ${className}`} />;
+  if (shot.src) return <img src={shot.src} alt={shot.alt ?? shot.brief} className={`w-full object-cover ${className}`} style={shot.focal && shot.focal !== "center" ? { objectPosition: shot.focal } : undefined} />;
   return (
     <div className={`flex items-center justify-center p-6 ${className}`}
       style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}>

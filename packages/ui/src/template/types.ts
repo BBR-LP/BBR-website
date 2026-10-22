@@ -11,7 +11,8 @@ export type SiteSlug = "bike" | "boat" | "run" | "mothers-day";
 export type NavItem = { label: string; href: string };
 
 // A photo, or until one exists, a colored block that says what the photo should show.
-export type Shot = { brief: string; src?: string };
+// alt and focal come from a photo record (alt: what it shows; focal: which part to keep when cropped).
+export type Shot = { brief: string; src?: string; alt?: string; focal?: string };
 
 export type Season = { season: string; title: string; line: string; photo: Shot };
 
@@ -50,6 +51,7 @@ export type SiteContent = {
   nav: NavItem[]; // the Menu panel: a few sections of this page
   cta: string;
   ctaHref: string; // booking or registration page
+  shareImage?: string; // picture shown when the page is shared; the hero photo when none is chosen
   hero: { photo: Shot; heading: string; headline: string; line: string }; // heading: the one main heading, with the search words
   book?: { title: string; line: string }; // the main-button section right after the hero (rentals; races use raceId)
   seasons: Season[];

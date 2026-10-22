@@ -18,7 +18,7 @@ export function structuredData(site: SiteInfo, c: SiteContent, race: Race | null
       name: site.name,
       description: site.description,
       url: b.url,
-      ...(c.hero.photo.src && { image: `${b.url}${c.hero.photo.src}` }),
+      ...((c.shareImage ?? c.hero.photo.src) && { image: `${b.url}${c.shareImage ?? c.hero.photo.src}` }),
       ...(c.contact.phone && { telephone: tel(c.contact.phone) }),
       email: c.contact.email,
       address: { "@type": "PostalAddress", streetAddress: b.address.street, addressLocality: b.address.city, addressRegion: b.address.state, postalCode: b.address.zip, addressCountry: "US" },

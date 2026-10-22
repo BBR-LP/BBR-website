@@ -1,22 +1,15 @@
 import { collection, fields } from "@keystatic/core";
+import { photoSlots } from "../template/photo-slots";
 
 // One record per approved photo, per site (bre/decisions/013 A4, records per site). The web copy is made by
 // photo-tools `publish` (2000 px, location data stripped), which also writes the record; Keystatic is where
 // Kristen edits the alt text, which slot a photo fills, and retires it. Saves land in the app's folder:
 // content/photos/<name>/index.json and the picture beside it in public/photos/library/<name>/.
 //
-// The slot names are the words Greg and Kristen see ("Home banner"), never a file path. The list is
-// the starting set; Clients #93 settles the final one per template.
+// The slot names are the words Greg and Kristen see ("Home banner"), never a file path; the list is
+// template/photo-slots.ts, which the pages read the same way.
 
-export const defaultPhotoSlots = [
-  { label: "Home banner", value: "home-banner" },
-  { label: "Through the seasons", value: "seasons" },
-  { label: "Our story", value: "story" },
-  { label: "Gallery", value: "gallery" },
-  { label: "Share image (when the link is shared)", value: "share" },
-];
-
-export function photoCollection(opts: { slots?: { label: string; value: string }[] } = {}) {
+export function photoCollection() {
   return collection({
     label: "Photos",
     path: "content/photos/*/",
@@ -58,7 +51,7 @@ export function photoCollection(opts: { slots?: { label: string; value: string }
       slots: fields.multiselect({
         label: "Where to use it",
         description: "Choose where on the page it can appear. Leave empty and it is not shown anywhere yet.",
-        options: opts.slots ?? defaultPhotoSlots,
+        options: photoSlots.map((s) => ({ ...s })),
       }),
       focal: fields.select({
         label: "Which part to keep when the photo is cropped",

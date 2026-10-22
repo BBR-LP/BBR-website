@@ -1,5 +1,5 @@
 import { createReader } from "@keystatic/core/reader";
-import type { SiteContent } from "@bbr/ui";
+import { pickPhotos, readPhotoRecords, type SiteContent } from "@bbr/ui";
 import keystaticConfig from "./keystatic.config";
 
 // Mirror Lake Boat Rental's page. What the owners change (notice, season, hours, prices, questions,
@@ -51,27 +51,31 @@ export async function getBoatContent(): Promise<SiteContent> {
   const questions = f.items.map((i) => ({ q: i.q, a: i.a }));
   questions.splice(Math.min(3, questions.length), 0, seasonQuestion);
 
+  // A photo a person has chosen in the editing screen (Photos, "Where to use it") replaces the stand-in
+  // for that spot; with none chosen the stand-in stays.
+  const picks = pickPhotos(await readPhotoRecords(reader.collections.photos));
   const seasonPhotos = [
-    photo("attachment-8-wide", "The lakeside park by the dock"),
-    photo("attachment-8-portrait", "The dock lined with kayaks and paddle boats"),
-    photo("phone-photo-20221030", "The dock in fall light, still water"),
+    picks["season-1"] ?? photo("attachment-8-wide", "The lakeside park by the dock"),
+    picks["season-2"] ?? photo("attachment-8-portrait", "The dock lined with kayaks and paddle boats"),
+    picks["season-3"] ?? photo("phone-photo-20221030", "The dock in fall light, still water"),
   ];
 
   return {
     notice: notice?.message?.trim() || undefined,
     title: "Boat Rentals on Main Street, Lake Placid | Mirror Lake Boat Rental",
+    shareImage: picks.share?.src,
     nav: [{ label: "Prices", href: "#rates" }, { label: "Our dock", href: "#story" }, { label: "Find us", href: "#location" }, { label: "Good to know", href: "#good-to-know" }],
     cta: "Reserve a boat",
     ctaHref: BOOKING,
     hero: {
-      photo: photo("lake-landscape", "Mirror Lake and the High Peaks, paddlers out"),
+      photo: picks["home-banner"] ?? photo("lake-landscape", "Mirror Lake and the High Peaks, paddlers out"),
       heading: "Mirror Lake boat rentals on Main Street",
       headline: "The calmest hour on Mirror Lake.",
       line: "Kayaks, canoes, paddle boards, row boats, sail and electric boats, steps from Main Street.",
     },
     book: { title: "Get out on the water", line: `Boats from $${low} an hour. No reservation needed: walk down to the dock, or book ahead to pay by card.` },
     seasons: st.seasons.map((x, i) => ({ season: x.season, title: x.title, line: x.line, photo: seasonPhotos[i] })),
-    story: { photo: photo("attachment-9-wide", "The lawn and dock next to Brewster Park"), title: st.title, body: st.body },
+    story: { photo: picks.story ?? photo("attachment-9-wide", "The lawn and dock next to Brewster Park"), title: st.title, body: st.body },
     rates: {
       title: "Prices",
       columns: ["Per hour"],
