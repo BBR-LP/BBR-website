@@ -50,6 +50,18 @@ export function commonSingletons(opts: { startLabel: string; startExample: strin
         ),
       },
     }),
+    uploads: singleton({
+      label: "Photo uploads on or off",
+      path: "content/uploads",
+      format: json,
+      schema: {
+        open: fields.checkbox({
+          label: "Accept photo uploads",
+          description: "Turn this off to stop new photos coming in, for example if someone is sending junk. It takes about a minute to take effect. Turn it back on any time.",
+          defaultValue: true,
+        }),
+      },
+    }),
     contact: singleton({
       label: "Phone number",
       path: "content/contact",

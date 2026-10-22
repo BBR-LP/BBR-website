@@ -23,7 +23,7 @@ export default config({
     brand: keystaticBrand("boat"),
     navigation: {
       "Things you change often": ["notice", "season", "hours", "prices"],
-      "Now and then": ["faq", "contact", "story", "photos"],
+      "Now and then": ["faq", "contact", "story", "photos", "uploads"],
     },
   },
   collections: {

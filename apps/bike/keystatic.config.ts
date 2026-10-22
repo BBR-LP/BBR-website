@@ -26,7 +26,7 @@ export default config({
     brand: keystaticBrand("bike"),
     navigation: {
       "Things you change often": ["notice", "season", "hours", "rates"],
-      "Now and then": ["faq", "contact", "story", "photos"],
+      "Now and then": ["faq", "contact", "story", "photos", "uploads"],
     },
   },
   collections: {
