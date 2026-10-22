@@ -1,5 +1,5 @@
 import { config, fields, singleton } from "@keystatic/core";
-import { commonSingletons, keystaticBrand } from "@bbr/ui/cms";
+import { commonSingletons, keystaticBrand, photoCollection } from "@bbr/ui/cms";
 
 const common = commonSingletons({
   startLabel: "We open",
@@ -23,8 +23,11 @@ export default config({
     brand: keystaticBrand("boat"),
     navigation: {
       "Things you change often": ["notice", "season", "hours", "prices"],
-      "Now and then": ["faq", "contact", "story"],
+      "Now and then": ["faq", "contact", "story", "photos"],
     },
+  },
+  collections: {
+    photos: photoCollection(),
   },
   singletons: {
     ...common,
