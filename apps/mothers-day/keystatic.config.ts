@@ -19,9 +19,11 @@ export default config({
       : { kind: "github", repo: { owner: "BBR-LP", name: "BBR-website" }, pathPrefix: "apps/mothers-day" },
   ui: {
     brand: keystaticBrand("mothers-day"),
+    // In the order things sit on the page. The race day section needs no entry: it comes from RunSignUp.
     navigation: {
-      "Things you change often": ["notice"],
-      "Now and then": ["faq", "story", "photos"],
+      "Top of the page": ["notice", "photos"],
+      "Middle of the page": ["story"],
+      "Bottom of the page": ["faq"],
     },
   },
   collections: {
