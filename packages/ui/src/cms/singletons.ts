@@ -71,7 +71,7 @@ export function commonSingletons(opts: { startLabel: string; startExample: strin
       },
     }),
     story: singleton({
-      label: "Story and seasons",
+      label: "Season cards and story",
       path: "content/story",
       format: json,
       schema: {

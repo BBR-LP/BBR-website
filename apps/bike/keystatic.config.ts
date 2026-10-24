@@ -24,9 +24,14 @@ export default config({
       : { kind: "github", repo: { owner: "BBR-LP", name: "BBR-website" }, pathPrefix: "apps/bike" },
   ui: {
     brand: keystaticBrand("bike"),
+    // In the order things sit on the page, so the list reads like scrolling down it. Photos come second
+    // because the home banner is the next thing on the page; every other picture is chosen there too.
     navigation: {
-      "Things you change often": ["notice", "season", "hours", "rates"],
-      "Now and then": ["faq", "contact", "story", "photos", "uploads"],
+      "Top of the page": ["notice", "photos"],
+      "Middle of the page": ["story"],
+      "Prices and hours": ["rates", "hours", "season"],
+      "Bottom of the page": ["faq", "contact"],
+      "Settings": ["uploads"],
     },
   },
   collections: {
