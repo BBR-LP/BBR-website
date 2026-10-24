@@ -34,7 +34,7 @@ export async function SitePage({ slug, content: c }: { slug: SiteSlug; content: 
       {c.raceId && <RaceDay race={race} href={c.ctaHref} cta={c.cta} color={color} heading={heading} />}
       {c.book && <BookBand book={c.book} href={c.ctaHref} cta={c.cta} color={color} dark={dark} onDark={color.brand_on_dark} heading={heading} />}
 
-      <section id="seasons" className="mx-auto max-w-6xl w-full px-4 pb-24 scroll-mt-20">
+      {c.seasons && c.seasons.length > 0 && <section id="seasons" className="mx-auto max-w-6xl w-full px-4 pb-24 scroll-mt-20">
         <h2 className="text-center text-sm uppercase tracking-widest" style={{ color: color.neutral_text_muted }}>Through the seasons</h2>
         <div className="mt-10 grid gap-10 md:grid-cols-3">
           {c.seasons.map((s) => (
@@ -46,7 +46,7 @@ export async function SitePage({ slug, content: c }: { slug: SiteSlug; content: 
             </div>
           ))}
         </div>
-      </section>
+      </section>}
 
       <section id="story" className="scroll-mt-20" style={{ background: color.neutral_bg }}>
         <div className="mx-auto max-w-6xl px-4 py-24 grid gap-10 md:grid-cols-2 md:items-center">

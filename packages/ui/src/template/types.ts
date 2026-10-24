@@ -54,7 +54,7 @@ export type SiteContent = {
   shareImage?: string; // picture shown when the page is shared; the hero photo when none is chosen
   hero: { photo: Shot; heading: string; headline: string; line: string }; // heading: the one main heading, with the search words
   book?: { title: string; line: string }; // the main-button section right after the hero (rentals; races use raceId)
-  seasons: Season[];
+  seasons?: Season[]; // rentals: three cards through the year. Race pages leave them out.
   story: { photo: Shot; title: string; body: string };
   gallery?: { title: string; photos: Shot[] }; // a swipeable row of up to 7 photos after the story; not shown when there are none
   rates?: RateTable;

@@ -19,7 +19,8 @@ export function photoYears(now = new Date()) {
   return [...years, { label: `Before ${FIRST_PHOTO_YEAR}, or not known`, value: UNKNOWN_YEAR }];
 }
 
-export function photoCollection() {
+// A site offers only the spots its page has (the 10K has no season cards): pass their values in `slots`.
+export function photoCollection(opts: { slots?: readonly string[] } = {}) {
   return collection({
     label: "Photos",
     path: "content/photos/*/",
@@ -66,7 +67,7 @@ export function photoCollection() {
       slots: fields.multiselect({
         label: "Where to use it",
         description: "Choose where on the page it can appear. Leave empty and it is not shown anywhere yet.",
-        options: photoSlots.map((s) => ({ ...s })),
+        options: photoSlots.filter((s) => !opts.slots || opts.slots.includes(s.value)).map((s) => ({ ...s })),
       }),
       focal: fields.select({
         label: "Which part to keep when the photo is cropped",

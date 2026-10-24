@@ -1,10 +1,11 @@
-import { createReader } from "@keystatic/core/reader";
-import { ComingSoon } from "@bbr/ui";
-import keystaticConfig from "../keystatic.config";
+import { SitePage, siteMetadata } from "@bbr/ui";
+import { getMothersDayContent } from "../mothers-day-content";
 
-const reader = createReader(process.cwd(), keystaticConfig);
+// indexable: false until go-live.
+export async function generateMetadata() {
+  return siteMetadata("mothers-day", await getMothersDayContent(), { indexable: false });
+}
 
 export default async function Home() {
-  const notice = await reader.singletons.notice.read();
-  return <ComingSoon name="Mother's Day 10K" note={notice?.message || undefined} staffLoginHref="/keystatic" />;
+  return <SitePage slug="mothers-day" content={await getMothersDayContent()} />;
 }
