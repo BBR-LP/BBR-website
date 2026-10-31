@@ -38,6 +38,28 @@ export function Gallery({ gallery, color, heading }: { gallery: { title: string;
   );
 }
 
+// A few of the race's store items, photo and name, no prices (bre/shared/design-journal/001, principle 9).
+// RunSignUp's store has no item pages, so every item and the button open the store page
+// (bre/shared/merch-journal/001). Sites with no merch never render this: `merch` is absent from their content.
+export function Merch({ merch, color, heading }: { merch: NonNullable<SiteContent["merch"]>; color: Palette; heading: Heading }) {
+  return (
+    <section id="store" className="mx-auto max-w-6xl w-full px-4 py-24 scroll-mt-20">
+      <h2 className="text-3xl text-center" style={heading}>{merch.title}</h2>
+      <ul className="mt-10 flex flex-wrap justify-center gap-6">
+        {merch.items.map((item) => (
+          <li key={item.name} className="basis-[calc(50%-0.75rem)] sm:basis-56">
+            <a href={merch.shopHref} target="_blank" rel="noopener" className="group block">
+              <Photo shot={item.photo} from={color.brand_primary} to={color.brand_dark} className="aspect-square rounded-lg" />
+              <span className="mt-3 block text-center group-hover:underline underline-offset-4">{item.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-10 text-center"><MainButton href={merch.shopHref} label="See the store" color={color} /></div>
+    </section>
+  );
+}
+
 export function MainButton({ href, label, color }: { href: string; label: string; color: Palette }) {
   return (
     <a href={href} target="_blank" rel="noopener" className="inline-block rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"

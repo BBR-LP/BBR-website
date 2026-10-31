@@ -57,6 +57,13 @@ made by whoever signs in (they need write access). Proven on `apps/mothers-day` 
 - **Name and logo in the editing screen:** each app's `ui.brand` is `keystaticBrand(slug)` from
   `@bbr/ui/cms`, which reads the site registry (name, and a small `mark`: Bike's badge, Boat's symbol
   on blue; a site without a mark gets its first letter on its brand color).
+- **Store items (races only):** `merchSingleton()` from `@bbr/ui/cms` is the "Store items on the page"
+  setting: a heading, the race's RunSignUp store link, and up to four items with a photo and a name
+  (`content/merch.json`, photos in `public/photos/merch/`). The page shows them without prices and
+  every item opens the store (bre `shared/merch-journal/001`). Only Run's and the 10K's configs
+  include it; Bike and Boat sell no merch and leave `merch` out of their content, so the template
+  renders no section there. Nothing in it is required: an item with no photo or name is skipped,
+  and no store link means no section, rather than a page error.
 - **Staff login:** every template page's footer has a small "Staff login" link to `/keystatic`, so
   nobody needs a bookmark. It is `nofollow` and marked `data-untracked` (keep it out of click
   tracking), and each app has a `robots.ts` (`editorRobots` from `@bbr/ui`) that tells crawlers to

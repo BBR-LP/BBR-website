@@ -3,7 +3,7 @@ import { getRace } from "./runsignup";
 import { getSite, sites } from "./registry";
 import { jsonLd, structuredData } from "./structured-data";
 import { typeface } from "./typeface";
-import { BookBand, Footer, Gallery, GoodToKnow, LocationSection, NoticeBar, Photo, RaceDay, Rates, SisterSite } from "./sections";
+import { BookBand, Footer, Gallery, GoodToKnow, LocationSection, Merch, NoticeBar, Photo, RaceDay, Rates, SisterSite } from "./sections";
 import type { SiteContent, SiteSlug } from "./types";
 
 // The shared page template (bre/shared/design-journal/001 and 005): words never sit on photos, a
@@ -59,6 +59,7 @@ export async function SitePage({ slug, content: c }: { slug: SiteSlug; content: 
       </section>
 
       {c.gallery && c.gallery.photos.length > 0 && <Gallery gallery={c.gallery} color={color} heading={heading} />}
+      {c.merch && c.merch.items.length > 0 && <Merch merch={c.merch} color={color} heading={heading} />}
 
       {c.rates && <Rates rates={c.rates} hours={c.hours} href={c.ctaHref} cta={c.cta} color={color} heading={heading} />}
       <LocationSection location={c.location} color={color} heading={heading} />

@@ -16,6 +16,9 @@ export type Shot = { brief: string; src?: string; alt?: string; focal?: string }
 
 export type Season = { season: string; title: string; line: string; photo: Shot };
 
+// One of the race's store items, shown by photo and name only. Prices and buying happen in the store.
+export type MerchItem = { name: string; photo: Shot };
+
 export type RateTable = {
   title: string;
   intro?: string;
@@ -57,6 +60,7 @@ export type SiteContent = {
   seasons: Season[];
   story: { photo: Shot; title: string; body: string };
   gallery?: { title: string; photos: Shot[] }; // a swipeable row of up to 7 photos after the story; not shown when there are none
+  merch?: { title: string; items: MerchItem[]; shopHref: string }; // races only: a few store items after the gallery, every one linking to the race's store page (bre/shared/merch-journal/001); absent on sites with no merch
   rates?: RateTable;
   hours?: { title: string; lines: string[] };
   raceId?: number; // RunSignUp race: date, events, start times and prices are read live, shown right after the hero
