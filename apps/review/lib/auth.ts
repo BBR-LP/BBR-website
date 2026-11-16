@@ -1,11 +1,13 @@
 import { cookies } from "next/headers";
 import { baseUrl } from "./github";
+import { allowedEmails } from "./magic";
 import { githubStore, localStore, mode, type Store } from "./review";
 import { SESSION_COOKIE, unseal, type Session } from "./session";
 
 export async function currentSession(): Promise<Session | null> {
   const s = unseal<Session>((await cookies()).get(SESSION_COOKIE)?.value);
-  return s && s.exp > Date.now() / 1000 ? s : null;
+  // A session only counts while the address is still on the list, so taking someone off locks them out at once.
+  return s && s.kind === "session" && s.exp > Date.now() / 1000 && allowedEmails().includes(s.email) ? s : null;
 }
 
 export type Access = { store: Store; login?: string } | { status: number; error: string };
@@ -17,7 +19,7 @@ export async function access(): Promise<Access> {
   if (m === "github") {
     const s = await currentSession();
     if (!s) return { status: 401, error: "Please sign in." };
-    return { store: githubStore(s.token), login: s.login };
+    return { store: githubStore(), login: s.email };
   }
   return { status: 503, error: "not switched on" };
 }

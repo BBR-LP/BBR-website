@@ -141,7 +141,7 @@ export function ReviewGrid({ sections, initial, made, login }: { sections: Sec[]
         {error && (
           <p role="alert" className="mb-4 rounded-md border border-rose-300 bg-rose-50 px-4 py-3 text-rose-800">
             {error === "SIGNED_OUT" ? (
-              <>Your sign-in has run out, so that choice was not saved. <a href="/api/auth/login" className="font-semibold underline">Sign in again</a>, then tap it once more.</>
+              <>Your sign-in has run out, so that choice was not saved. <a href="/" className="font-semibold underline">Sign in again</a> (we email you a new link), then tap it once more.</>
             ) : (
               error
             )}

@@ -1,37 +1,20 @@
-// The GitHub side of sign-in and of the private data repo. The two base addresses can be pointed at a
-// local stand-in (tools/mock-github.mjs) so the whole flow can be tested without a real GitHub App.
+import { createSign } from "node:crypto";
 
-export const webUrl = () => process.env.GITHUB_WEB_URL ?? "https://github.com";
+// The GitHub side of the private data repo. The page writes as the GitHub App "BBR-LP Photo Review" (an
+// installation token, minted here from the app's private key), not as a signed-in person: people sign in by
+// email link (lib/magic.ts), and who chose what is recorded in the log line itself. The base address can be
+// pointed at a local stand-in (tools/mock-github.mjs) so the flow can be tested without the real app.
+
 export const apiUrl = () => process.env.GITHUB_API_URL ?? "https://api.github.com";
 export const dataRepo = () => process.env.REVIEW_DATA_REPO ?? "BBR-LP/BBR-photo-data";
 
+const appKey = () => (process.env.REVIEW_GITHUB_APP_PRIVATE_KEY ?? "").replace(/\\n/g, "\n");
+
 export const githubConfigured = () =>
-  !!process.env.REVIEW_GITHUB_CLIENT_ID && !!process.env.REVIEW_GITHUB_CLIENT_SECRET && (process.env.REVIEW_SESSION_SECRET ?? "").length >= 32;
+  !!process.env.REVIEW_GITHUB_APP_ID && appKey().includes("PRIVATE KEY") && (process.env.REVIEW_SESSION_SECRET ?? "").length >= 32;
 
-// Where GitHub sends people back to. Fixed by configuration, not read from the request.
+// Where emailed links point. Fixed by configuration, not read from the request.
 export const baseUrl = () => (process.env.REVIEW_BASE_URL ?? "").replace(/\/$/, "");
-export const redirectUri = () => `${baseUrl()}/api/auth/callback`;
-
-export function authorizeUrl(state: string) {
-  const q = new URLSearchParams({ client_id: process.env.REVIEW_GITHUB_CLIENT_ID as string, redirect_uri: redirectUri(), state });
-  return `${webUrl()}/login/oauth/authorize?${q}`;
-}
-
-export async function exchangeCode(code: string): Promise<{ token?: string; error?: string }> {
-  const r = await fetch(`${webUrl()}/login/oauth/access_token`, {
-    method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-    body: JSON.stringify({
-      client_id: process.env.REVIEW_GITHUB_CLIENT_ID,
-      client_secret: process.env.REVIEW_GITHUB_CLIENT_SECRET,
-      code,
-      redirect_uri: redirectUri(),
-    }),
-    cache: "no-store",
-  });
-  const b = await r.json().catch(() => ({}));
-  return b.access_token ? { token: b.access_token } : { error: b.error_description ?? b.error ?? "GitHub did not accept the sign-in" };
-}
 
 export type GhInit = RequestInit & { accept?: string };
 
@@ -50,15 +33,40 @@ export function gh(token: string, path: string, init: GhInit = {}) {
   });
 }
 
-// Signed in AND allowed: the person's own GitHub token must be able to write to the private data repo.
-// (A GitHub App's user token only reaches repos the app is installed on AND the person can access.)
-export async function whoAndAccess(token: string): Promise<{ login?: string; error?: string }> {
-  const u = await gh(token, "/user");
-  if (!u.ok) return { error: "GitHub would not say who you are." };
-  const login = (await u.json()).login as string;
-  const repo = await gh(token, `/repos/${dataRepo()}`);
-  if (!repo.ok) return { login, error: `${login} cannot open the photo data. Ask for access to ${dataRepo()}.` };
-  const perms = (await repo.json()).permissions;
-  if (!perms?.push) return { login, error: `${login} can look at the photo data but not save choices to it.` };
-  return { login };
+const b64 = (s: string | Buffer) => Buffer.from(s).toString("base64url");
+
+function appJwt(): string {
+  const now = Math.floor(Date.now() / 1000);
+  const head = `${b64(JSON.stringify({ alg: "RS256", typ: "JWT" }))}.${b64(JSON.stringify({ iat: now - 60, exp: now + 540, iss: process.env.REVIEW_GITHUB_APP_ID }))}`;
+  return `${head}.${b64(createSign("RSA-SHA256").update(head).sign(appKey()))}`;
+}
+
+// Installation tokens last an hour; keep one for 50 minutes so most saves do not mint a new one.
+// (Kept on globalThis because Next can load this file once per route; one cache per server process is the point.)
+const state = globalThis as unknown as { __reviewToken?: { token: string; until: number } | null; __reviewMinting?: Promise<string> | null };
+
+async function mint(): Promise<string> {
+  const jwt = appJwt();
+  const inst = await gh(jwt, `/repos/${dataRepo()}/installation`);
+  if (!inst.ok) throw new Error(`The photo app is not installed on ${dataRepo()} (${inst.status}).`);
+  const id = (await inst.json()).id;
+  const t = await gh(jwt, `/app/installations/${id}/access_tokens`, { method: "POST" });
+  if (!t.ok) throw new Error(`GitHub would not give the photo app access (${t.status}).`);
+  const token = (await t.json()).token as string;
+  state.__reviewToken = { token, until: Date.now() + 50 * 60_000 };
+  return token;
+}
+
+async function appToken(): Promise<string> {
+  const c = state.__reviewToken;
+  if (c && c.until > Date.now()) return c.token;
+  return (state.__reviewMinting ??= mint().finally(() => (state.__reviewMinting = null)));
+}
+
+// A request to the data repo as the app. If GitHub says the token is no good, mint a fresh one and try once more.
+export async function ghApp(path: string, init: GhInit = {}): Promise<Response> {
+  const r = await gh(await appToken(), path, init);
+  if (r.status !== 401) return r;
+  state.__reviewToken = null;
+  return gh(await appToken(), path, init);
 }

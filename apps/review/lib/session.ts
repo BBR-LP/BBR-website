@@ -1,14 +1,12 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 
-// A signed-in person is a cookie: their GitHub token and login, encrypted (AES-256-GCM) with a secret that
-// only the server has, so there is no database to run and nothing to read in the browser. The token can
-// write to the private data repo, which is why it is encrypted, HttpOnly, and short-lived.
+// A signed-in person is a cookie: their email address and an expiry, encrypted (AES-256-GCM) with a secret that
+// only the server has, so there is no database to run and nothing to read or forge in the browser.
 
-export type Session = { token: string; login: string; exp: number };
+export type Session = { kind: "session"; email: string; exp: number };
 
 export const SESSION_COOKIE = "review_session";
-export const STATE_COOKIE = "review_oauth_state";
-export const SESSION_SECONDS = 8 * 60 * 60; // GitHub App user tokens last 8 hours
+export const SESSION_SECONDS = 30 * 24 * 60 * 60; // once a month is rare enough for Kristen and Greg
 
 const key = () => {
   const secret = process.env.REVIEW_SESSION_SECRET;
@@ -36,8 +34,6 @@ export function unseal<T>(sealed: string | undefined): T | null {
     return null; // tampered, wrong secret, or garbage: treat as signed out
   }
 }
-
-export const newState = () => randomBytes(16).toString("base64url");
 
 export function cookie(name: string, value: string, maxAgeSeconds: number, secure: boolean) {
   return `${name}=${value}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax${secure ? "; Secure" : ""}`;

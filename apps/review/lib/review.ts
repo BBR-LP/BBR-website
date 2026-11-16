@@ -1,24 +1,24 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { baseUrl, dataRepo, gh, githubConfigured } from "./github";
+import { baseUrl, dataRepo, ghApp, githubConfigured } from "./github";
+import { allowedEmails } from "./magic";
 import type { Decision, Photo } from "./types";
 
 // The review page's data. Two ways to run it, and nothing is served unless one is configured:
 //   local   REVIEW_MODE=local + REVIEW_DATA_DIR: a folder from photo-tools (no sign-in; for trying it on one machine)
-//   github  REVIEW_MODE=github + the GitHub App settings: sign in with GitHub; batches and decisions live in the
-//           private data repo (BBR-LP/BBR-photo-data), written with the signed-in person's own token
+//   github  REVIEW_MODE=github + the GitHub App and email settings: sign in with an emailed link; batches and
+//           decisions live in the private data repo (BBR-LP/BBR-photo-data), written by the GitHub App
 // Photos themselves come from the business Dropbox later (Clients #96); until then the hosted page shows a
 // stand-in image. Plan: bre/shared/photo-journal/001-workflow-plan.md (Part 5), decision 013 A10.
 
 export type Mode = "local" | "github";
 export function mode(): Mode | null {
   if (process.env.REVIEW_MODE === "local" && process.env.REVIEW_DATA_DIR) return "local";
-  if (process.env.REVIEW_MODE === "github" && githubConfigured() && baseUrl()) return "github";
+  if (process.env.REVIEW_MODE === "github" && githubConfigured() && baseUrl() && allowedEmails().length > 0) return "github";
   return null;
 }
 export const configured = () => mode() !== null;
 
-export class Unauthorized extends Error {}
 export class NoBatch extends Error {}
 
 export type Batch = { made: string; photos: Photo[] };
@@ -88,22 +88,17 @@ function inTurn<T>(key: string, fn: () => Promise<T>): Promise<T> {
 }
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function githubStore(token: string): Store {
+export function githubStore(): Store {
   const repo = dataRepo();
-  const guard = (status: number) => {
-    if (status === 401) throw new Unauthorized("sign-in expired");
-  };
 
   async function list(p: string): Promise<{ name: string; type: string }[]> {
-    const r = await gh(token, `/repos/${repo}/contents/${p}`);
-    guard(r.status);
+    const r = await ghApp(`/repos/${repo}/contents/${p}`);
     if (r.status === 404) return [];
     if (!r.ok) throw new Error(`Could not list ${p} (${r.status})`);
     return r.json();
   }
   async function raw(p: string): Promise<string> {
-    const r = await gh(token, `/repos/${repo}/contents/${p}`, { accept: "application/vnd.github.raw+json" });
-    guard(r.status);
+    const r = await ghApp(`/repos/${repo}/contents/${p}`, { accept: "application/vnd.github.raw+json" });
     if (!r.ok) throw new Error(`Could not read ${p} (${r.status})`);
     return r.text();
   }
@@ -119,15 +114,14 @@ export function githubStore(token: string): Store {
       const texts = await Promise.all(files.map((f) => raw(`decisions/${f.name}`)));
       return fold(texts.flatMap((t) => t.split("\n")));
     },
-    // One commit per choice, under the signed-in person's own GitHub login: the history is the audit trail.
+    // One commit per choice, made by the app; the message and the log line carry the name and email of who chose.
     // Two people saving at once is handled by re-reading and trying again.
     async appendDecision(d, label) {
       const p = `decisions/${isoWeek(d.at)}.jsonl`;
       return inTurn(p, async () => {
       for (let attempt = 0; attempt < 6; attempt++) {
         if (attempt > 0) await pause(80 + Math.random() * 220);
-        const cur = await gh(token, `/repos/${repo}/contents/${p}`);
-        guard(cur.status);
+        const cur = await ghApp(`/repos/${repo}/contents/${p}`);
         let text = "";
         let sha: string | undefined;
         if (cur.ok) {
@@ -138,8 +132,7 @@ export function githubStore(token: string): Store {
           throw new Error(`Could not read the log (${cur.status})`);
         }
         const body = { message: `choice: ${label}`, content: Buffer.from(text + (text && !text.endsWith("\n") ? "\n" : "") + JSON.stringify(d) + "\n").toString("base64"), sha };
-        const put = await gh(token, `/repos/${repo}/contents/${p}`, { method: "PUT", body: JSON.stringify(body), headers: { "Content-Type": "application/json" } });
-        guard(put.status);
+        const put = await ghApp(`/repos/${repo}/contents/${p}`, { method: "PUT", body: JSON.stringify(body), headers: { "Content-Type": "application/json" } });
         if (put.ok) return;
         if (put.status !== 409 && put.status !== 422) throw new Error(`Could not save (${put.status})`);
       }

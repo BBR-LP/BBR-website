@@ -1,5 +1,4 @@
 import { access, sameOrigin } from "@/lib/auth";
-import { Unauthorized } from "@/lib/review";
 import { SITES, type Action, type Decision, type Site } from "@/lib/types";
 
 const ACTIONS: Action[] = ["use", "keep_off", "unsure", "clear"];
@@ -32,7 +31,6 @@ export async function POST(req: Request) {
     await a.store.appendDecision(d, `${b.action} ${photo.file} (${who})`);
     return Response.json({ ok: true, decision: d });
   } catch (e) {
-    if (e instanceof Unauthorized) return Response.json({ error: "Your sign-in has run out.", signedOut: true }, { status: 401 });
     return Response.json({ error: (e as Error).message }, { status: 502 });
   }
 }
