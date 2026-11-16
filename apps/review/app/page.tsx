@@ -27,6 +27,12 @@ export default async function Home() {
     return <ReviewGrid sections={secs} initial={await a.store.readDecisions()} made={batch.made} login={a.login} />;
   } catch (e) {
     if (e instanceof NoBatch) return <Message>{e.message}</Message>;
-    return <Message>The photos could not be loaded just now. Please try again in a minute.</Message>;
+    console.error("photo review: could not load the photos:", (e as Error).message);
+    return (
+      <Message>
+        The photos could not be loaded just now. Please try again in a minute.
+        <span className="mt-3 block text-sm text-stone-500">Details for turph: {(e as Error).message}</span>
+      </Message>
+    );
   }
 }
