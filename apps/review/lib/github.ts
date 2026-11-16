@@ -8,7 +8,15 @@ import { createSign } from "node:crypto";
 export const apiUrl = () => process.env.GITHUB_API_URL ?? "https://api.github.com";
 export const dataRepo = () => process.env.REVIEW_DATA_REPO ?? "BBR-LP/BBR-photo-data";
 
-const appKey = () => (process.env.REVIEW_GITHUB_APP_PRIVATE_KEY ?? "").replace(/\\n/g, "\n");
+// The key arrives through a settings box that may have turned its line breaks into spaces, "\\n", or nothing.
+// Rebuild it from the two marker lines and the body between them, so the layout the box left does not matter.
+export function normalizeKey(raw: string): string {
+  const m = raw.match(/-----BEGIN ([A-Z ]+)-----([\s\S]*?)-----END \1-----/);
+  if (!m) return raw;
+  const body = m[2].replace(/\\n|\s/g, "");
+  return `-----BEGIN ${m[1]}-----\n${body.match(/.{1,64}/g)?.join("\n") ?? ""}\n-----END ${m[1]}-----\n`;
+}
+const appKey = () => normalizeKey(process.env.REVIEW_GITHUB_APP_PRIVATE_KEY ?? "");
 
 export const githubConfigured = () =>
   !!process.env.REVIEW_GITHUB_APP_ID && appKey().includes("PRIVATE KEY") && (process.env.REVIEW_SESSION_SECRET ?? "").length >= 32;
